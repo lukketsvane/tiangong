@@ -170,12 +170,17 @@ The repository includes a GitHub Actions workflow that automatically syncs the d
   - Daily at 2 AM UTC (scheduled)
   - Manually via GitHub Actions UI
 
+> **Detailed Setup Guide**: See [GITHUB_ACTIONS_SETUP.md](GITHUB_ACTIONS_SETUP.md) for complete instructions.
+
 ### Setting up GitHub Actions
 
 1. Go to your repository **Settings** → **Secrets and variables** → **Actions**
 2. Add the following repository secrets:
-   - `NOTION_TOKEN`: Your Notion integration token
-   - `NOTION_DATABASE_ID`: Your Notion database ID
+   - `NOTION_TOKEN`: Your Notion integration token (e.g., `ntn_N762533464840bhrKQ0gDmSVkczVpOyKrfkk5m8VRH2b1S`)
+   - `NOTION_DATABASE_ID`: Your Notion database ID (e.g., `bffb39a4584c462ca4d4bb9e1c892ccb`)
+
+   > **Note**: Extract the database ID from your Notion URL:
+   > `https://www.notion.so/workspace/DATABASE_ID?v=...`
 
 3. The workflow will automatically run when you push changes to the CSV file
 
