@@ -150,13 +150,37 @@ The CSV must maintain the following column headers:
 - Principal_Investigator
 - Mission_Module
 
+## 🤖 Automated Sync with GitHub Actions
+
+The repository includes a GitHub Actions workflow that automatically syncs the database to Notion:
+
+- **Triggers**:
+  - When `planned_research_main.csv` is updated (push to main branch)
+  - Daily at 2 AM UTC (scheduled)
+  - Manually via GitHub Actions UI
+
+### Setting up GitHub Actions
+
+1. Go to your repository **Settings** → **Secrets and variables** → **Actions**
+2. Add the following repository secrets:
+   - `NOTION_TOKEN`: Your Notion integration token
+   - `NOTION_DATABASE_ID`: Your Notion database ID
+
+3. The workflow will automatically run when you push changes to the CSV file
+
+You can also manually trigger the sync:
+- Go to **Actions** tab in your repository
+- Click on "Sync to Notion" workflow
+- Click "Run workflow"
+
 ## 🚀 Features
 
-- **Automated Sync**: One command to sync all data
+- **Automated Sync**: One command to sync all data (or automatic via GitHub Actions)
 - **Smart Updates**: Only creates or updates pages as needed
 - **Error Handling**: Detailed error messages for troubleshooting
 - **Batch Processing**: Efficiently handles large datasets
 - **Idempotent**: Safe to run multiple times
+- **CI/CD Integration**: GitHub Actions workflow for automatic syncing
 
 ## 📚 Research Highlights
 
