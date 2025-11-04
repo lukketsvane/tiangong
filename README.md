@@ -2,6 +2,17 @@
 
 A comprehensive database of space research experiments conducted on the Tiangong Space Station and the International Space Station (ISS). This repository includes automated synchronization with Notion databases.
 
+## 📚 Documentation Guide
+
+**New to this repository?** Start here:
+- 🚀 **[QUICKSTART.md](QUICKSTART.md)** - Get started in 5 minutes
+- ✅ **[CHECKLIST.md](CHECKLIST.md)** - Step-by-step setup checklist
+- 📖 **[NOTION_SETUP.md](NOTION_SETUP.md)** - Quick Notion integration setup
+- 🤖 **[GITHUB_ACTIONS_SETUP.md](GITHUB_ACTIONS_SETUP.md)** - Automated sync configuration
+- 📊 **[SETUP.md](SETUP.md)** - Comprehensive setup summary
+- 🔍 **[HOW_IT_WORKS.md](HOW_IT_WORKS.md)** - Technical explanation of sync process
+- 📝 **[USAGE.md](USAGE.md)** - Usage examples and workflows
+
 ## 📊 Database Contents
 
 The `planned_research_main.csv` file contains detailed information about space experiments including:
@@ -239,6 +250,30 @@ This data is compiled from publicly available sources about space research progr
 - Create custom properties in Notion for additional metadata
 - Set up Notion automations based on experiment status
 
+## 📖 Additional Documentation
+
+For detailed guides and references:
+
+- **Setup & Configuration**
+  - [QUICKSTART.md](QUICKSTART.md) - 5-minute quick start
+  - [CHECKLIST.md](CHECKLIST.md) - Complete setup checklist
+  - [NOTION_SETUP.md](NOTION_SETUP.md) - Notion integration setup
+  - [SETUP.md](SETUP.md) - Comprehensive setup guide
+
+- **Automation**
+  - [GITHUB_ACTIONS_SETUP.md](GITHUB_ACTIONS_SETUP.md) - GitHub Actions configuration
+  - `.github/workflows/sync-notion.yml` - Workflow file
+
+- **Usage & Reference**
+  - [USAGE.md](USAGE.md) - Usage examples
+  - [HOW_IT_WORKS.md](HOW_IT_WORKS.md) - Technical documentation
+
+- **Tools & Scripts**
+  - `setup_notion.py` - Interactive setup wizard
+  - `validate_notion.py` - Database validation tool
+  - `sync_to_notion.py` - Main sync script
+  - `test_sync.py` - Test suite
+
 ---
 
-**Note**: Make sure to set up your Notion integration and database before running the sync script. See the Setup Instructions above for detailed steps.
+**Note**: Make sure to set up your Notion integration and database before running the sync script. See [NOTION_SETUP.md](NOTION_SETUP.md) or [CHECKLIST.md](CHECKLIST.md) for detailed steps.
