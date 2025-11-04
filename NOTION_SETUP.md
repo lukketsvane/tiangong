@@ -2,18 +2,20 @@
 
 This guide will help you quickly set up the Notion integration for the Tiangong Research Database.
 
-## ✅ Your Integration is Ready!
+## ✅ Integration Setup
 
-An integration has already been created with the following details:
-- **Integration Token**: `ntn_N762533464840bhrKQ0gDmSVkczVpOyKrfkk5m8VRH2b1S`
-- **Database URL**: https://www.notion.so/tingogtang/bffb39a4584c462ca4d4bb9e1c892ccb?v=85ae6e584e4d45da8d3a6faf5532d790
-- **Database ID**: `bffb39a4584c462ca4d4bb9e1c892ccb`
+You'll need:
+- **Integration Token**: From https://www.notion.so/my-integrations (starts with `secret_` or `ntn_`)
+- **Database URL**: Your Notion database URL
+- **Database ID**: Extracted from the URL (32 character string)
+
+> **Note**: If you have your credentials ready, they should be placed in a `.env` file. See below for details.
 
 ## 🚀 Quick Start (2 minutes)
 
 ### Step 1: Ensure Database Properties
 
-Make sure your Notion database at https://www.notion.so/tingogtang/bffb39a4584c462ca4d4bb9e1c892ccb has these properties:
+Make sure your Notion database has these properties:
 
 1. **Name** (Title)
 2. **Station** (Select) - Must have options: "Tiangong" and "ISS"
@@ -27,10 +29,10 @@ Make sure your Notion database at https://www.notion.so/tingogtang/bffb39a4584c4
 
 ### Step 2: Share Database with Integration
 
-1. Open your database: https://www.notion.so/tingogtang/bffb39a4584c462ca4d4bb9e1c892ccb
+1. Open your Notion database
 2. Click the "..." menu (top-right)
 3. Click "Add connections"
-4. Select your integration named "tiangong"
+4. Select your integration
 
 ### Step 3: Install Dependencies
 
@@ -40,11 +42,17 @@ pip install -r requirements.txt
 
 ### Step 4: Configure Environment
 
-The `.env` file has already been configured with your credentials:
+Create a `.env` file with your credentials:
 
 ```bash
-NOTION_TOKEN=ntn_N762533464840bhrKQ0gDmSVkczVpOyKrfkk5m8VRH2b1S
-NOTION_DATABASE_ID=bffb39a4584c462ca4d4bb9e1c892ccb
+# Option 1: Use the interactive setup script
+python setup_notion.py
+
+# Option 2: Manually create .env file
+cp .env.example .env
+# Then edit .env and add:
+# NOTION_TOKEN=your_token_here
+# NOTION_DATABASE_ID=your_database_id_here
 ```
 
 ### Step 5: Run the Sync
@@ -75,11 +83,11 @@ The script will sync all experiments from `planned_research_main.csv` including:
 
 ### Set Up Repository Secrets
 
-1. Go to your repository: https://github.com/lukketsvane/tiangong
+1. Go to your repository: https://github.com/YOUR_USERNAME/YOUR_REPO
 2. Navigate to **Settings** → **Secrets and variables** → **Actions**
 3. Add these repository secrets:
-   - `NOTION_TOKEN`: `ntn_N762533464840bhrKQ0gDmSVkczVpOyKrfkk5m8VRH2b1S`
-   - `NOTION_DATABASE_ID`: `bffb39a4584c462ca4d4bb9e1c892ccb`
+   - `NOTION_TOKEN`: Your Notion integration token
+   - `NOTION_DATABASE_ID`: Your Notion database ID
 
 ### Automatic Syncing
 
@@ -90,11 +98,7 @@ Once secrets are configured, the database will automatically sync:
 
 ## 📊 View Your Data
 
-After syncing, view your experiments at:
-https://www.notion.so/tingogtang/bffb39a4584c462ca4d4bb9e1c892ccb
-
-You can also use this view:
-https://www.notion.so/tingogtang/2a01c6815f7880358fb5f916cb083bcb
+After syncing, view your experiments in your Notion database.
 
 ## 🎨 Customize Your Notion Database
 

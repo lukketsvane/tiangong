@@ -51,8 +51,8 @@ def get_database_id():
     print("2. The URL looks like: https://www.notion.so/workspace/DATABASE_ID?v=...")
     print("3. Copy the DATABASE_ID part (32 character alphanumeric string)")
     print()
-    print("Example URL: https://www.notion.so/tingogtang/bffb39a4584c462ca4d4bb9e1c892ccb?v=...")
-    print("Database ID: bffb39a4584c462ca4d4bb9e1c892ccb")
+    print("Example URL: https://www.notion.so/workspace/abc123def456ghi789jkl012mno345pq?v=...")
+    print("Database ID: abc123def456ghi789jkl012mno345pq")
     print()
     
     while True:
@@ -157,7 +157,8 @@ def run_test():
         print()
         print("Running tests...")
         print()
-        os.system("python test_sync.py")
+        import subprocess
+        subprocess.run(["python", "test_sync.py"])
     else:
         print()
         print("You can run tests later with: python test_sync.py")

@@ -18,15 +18,15 @@ You'll need two pieces of information:
 
 #### Notion Integration Token
 - Format: `secret_...` or `ntn_...`
-- Example: `ntn_N762533464840bhrKQ0gDmSVkczVpOyKrfkk5m8VRH2b1S`
+- Example: `ntn_ABC123XYZ789example`
 - Where to find it:
   1. Go to https://www.notion.so/my-integrations
-  2. Click on your integration (e.g., "tiangong")
+  2. Click on your integration
   3. Copy the "Internal Integration Token"
 
 #### Notion Database ID
 - Format: 32 character alphanumeric string
-- Example: `bffb39a4584c462ca4d4bb9e1c892ccb`
+- Example: `abc123def456ghi789jkl012mno345pq`
 - Where to find it:
   1. Open your Notion database in a browser
   2. Look at the URL: `https://www.notion.so/workspace/DATABASE_ID?v=...`
@@ -34,15 +34,15 @@ You'll need two pieces of information:
   
   Example URL:
   ```
-  https://www.notion.so/tingogtang/bffb39a4584c462ca4d4bb9e1c892ccb?v=85ae6e584e4d45da8d3a6faf5532d790
-                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                                    This is your Database ID
+  https://www.notion.so/workspace/abc123def456ghi789jkl012mno345pq?v=view123...
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                This is your Database ID
   ```
 
 ### Step 2: Add Secrets to GitHub Repository
 
 1. **Navigate to Repository Settings**
-   - Go to https://github.com/lukketsvane/tiangong
+   - Go to your repository on GitHub
    - Click the **Settings** tab (top menu)
 
 2. **Access Secrets Menu**
