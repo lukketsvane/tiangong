@@ -53,7 +53,12 @@ def validate_config() -> bool:
         return False
     
     print("✅ Configuration found")
-    print(f"   Token: {'*' * 20}... (masked)")
+    # Mask token - show first 4 and last 4 characters with asterisks in between
+    if len(NOTION_TOKEN) > 8:
+        masked_token = f"{NOTION_TOKEN[:4]}{'*' * (len(NOTION_TOKEN) - 8)}{NOTION_TOKEN[-4:]}"
+    else:
+        masked_token = '*' * len(NOTION_TOKEN)
+    print(f"   Token: {masked_token}")
     print(f"   Database ID: {NOTION_DATABASE_ID}")
     return True
 
