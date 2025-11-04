@@ -187,6 +187,8 @@ def sync_to_notion():
     # Sync each row
     created_count = 0
     updated_count = 0
+    error_count = 0
+    errors = []
     
     for row in csv_data:
         experiment_name = row.get("Experiment_Name", "")
@@ -203,7 +205,10 @@ def sync_to_notion():
                 updated_count += 1
                 print(f"✓ Updated: {experiment_name}")
             except Exception as e:
-                print(f"✗ Error updating {experiment_name}: {e}")
+                error_count += 1
+                error_msg = f"Error updating {experiment_name}: {e}"
+                errors.append(error_msg)
+                print(f"✗ {error_msg}")
         else:
             # Create new page
             try:
@@ -214,13 +219,45 @@ def sync_to_notion():
                 created_count += 1
                 print(f"+ Created: {experiment_name}")
             except Exception as e:
-                print(f"✗ Error creating {experiment_name}: {e}")
+                error_count += 1
+                error_msg = f"Error creating {experiment_name}: {e}"
+                errors.append(error_msg)
+                print(f"✗ {error_msg}")
     
     print("\n" + "="*60)
     print(f"Sync complete!")
     print(f"Created: {created_count} pages")
     print(f"Updated: {updated_count} pages")
+    print(f"Errors: {error_count}")
     print("="*60)
+    
+    # If all operations failed, show common issues and exit with error
+    if created_count == 0 and updated_count == 0 and len(csv_data) > 0:
+        print("\n⚠️  WARNING: No pages were created or updated!")
+        print("\nCommon issues:")
+        print("1. Database not shared with integration")
+        print("   → Open database in Notion → Click '...' → 'Add connections' → Select integration")
+        print("\n2. Property type mismatch")
+        print("   → Ensure 'Station' property is type 'Select' (not 'Text')")
+        print("   → Ensure 'Station' has options: 'Tiangong' and 'ISS'")
+        print("\n3. Invalid database ID or token")
+        print("   → Verify NOTION_DATABASE_ID in secrets")
+        print("   → Verify NOTION_TOKEN is valid and not expired")
+        
+        if errors:
+            print("\nFirst few errors:")
+            for error in errors[:3]:
+                print(f"  • {error}")
+        
+        sys.exit(1)
+    
+    # If some operations failed but not all, show warning but don't exit
+    if error_count > 0:
+        print(f"\n⚠️  Warning: {error_count} operation(s) failed")
+        if errors:
+            print("\nFirst few errors:")
+            for error in errors[:5]:
+                print(f"  • {error}")
 
 
 if __name__ == "__main__":
