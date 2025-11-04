@@ -42,7 +42,7 @@ This repository includes a Python script to automatically sync the CSV database 
 1. In Notion, create a new database (table view recommended)
 2. Add the following properties:
    - **Name** (Title) - Experiment Name
-   - **Station** (Select) - Options: Tiangong, ISS
+   - **Station** (Select) - **Important**: Add two options: "Tiangong" and "ISS"
    - **Discipline** (Text)
    - **Country/Institution** (Text)
    - **Timeline Status** (Text)

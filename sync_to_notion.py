@@ -154,7 +154,7 @@ def get_existing_pages(notion: Client, database_id: str) -> Dict[str, str]:
         for page in response["results"]:
             # Use experiment name as key
             title_property = page["properties"].get("Name", {})
-            if title_property.get("title"):
+            if title_property.get("title") and len(title_property["title"]) > 0:
                 name = title_property["title"][0]["text"]["content"]
                 existing_pages[name] = page["id"]
         
