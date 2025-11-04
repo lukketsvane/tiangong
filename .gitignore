@@ -1,6 +1,9 @@
 # Environment variables (contains sensitive credentials)
 .env
 
+# User-specific credential files
+YOUR_CREDENTIALS.md
+
 # Python
 __pycache__/
 *.py[cod]
