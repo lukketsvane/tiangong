@@ -157,8 +157,14 @@ def run_test():
         print()
         print("Running tests...")
         print()
+        import sys
         import subprocess
-        subprocess.run(["python", "test_sync.py"])
+        try:
+            subprocess.run([sys.executable, "test_sync.py"], check=True, shell=False)
+        except subprocess.CalledProcessError as e:
+            print(f"Tests failed with error: {e}")
+        except Exception as e:
+            print(f"Error running tests: {e}")
     else:
         print()
         print("You can run tests later with: python test_sync.py")
