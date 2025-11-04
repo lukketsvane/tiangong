@@ -20,6 +20,8 @@ The `planned_research_main.csv` file contains detailed information about space e
 
 This repository includes a Python script to automatically sync the CSV database to Notion, allowing you to manage and visualize the data in Notion's collaborative workspace.
 
+> **Quick Setup Available!** If you already have a Notion integration set up, see [NOTION_SETUP.md](NOTION_SETUP.md) for instant configuration.
+
 ### Prerequisites
 
 - Python 3.7 or higher
@@ -27,6 +29,10 @@ This repository includes a Python script to automatically sync the CSV database 
 - A Notion integration with access to your database
 
 ### Setup Instructions
+
+> **Option 1: Interactive Setup** - Run `python setup_notion.py` for a guided setup experience.
+
+> **Option 2: Manual Setup** - Follow the steps below.
 
 #### 1. Create a Notion Integration
 
@@ -85,6 +91,11 @@ This repository includes a Python script to automatically sync the CSV database 
    ```
 
 #### 4. Run the Sync
+
+Before syncing, you can validate your setup:
+```bash
+python validate_notion.py
+```
 
 Execute the sync script:
 ```bash
