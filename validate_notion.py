@@ -53,7 +53,7 @@ def validate_config() -> bool:
         return False
     
     print("✅ Configuration found")
-    print(f"   Token: {NOTION_TOKEN[:10]}..." if len(NOTION_TOKEN) > 10 else f"   Token: {NOTION_TOKEN}")
+    print(f"   Token: {'*' * 20}... (masked)")
     print(f"   Database ID: {NOTION_DATABASE_ID}")
     return True
 

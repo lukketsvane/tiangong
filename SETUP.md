@@ -31,9 +31,13 @@ Your Tiangong repository now includes:
 
 ## 📊 Your Integration Details
 
-- **Integration Token**: `ntn_N762533464840bhrKQ0gDmSVkczVpOyKrfkk5m8VRH2b1S`
-- **Database ID**: `bffb39a4584c462ca4d4bb9e1c892ccb`
-- **Database URL**: https://www.notion.so/tingogtang/bffb39a4584c462ca4d4bb9e1c892ccb
+You'll need these pieces of information:
+
+- **Integration Token**: Get from https://www.notion.so/my-integrations (starts with `secret_` or `ntn_`)
+- **Database ID**: Extract from your Notion database URL (32 character string)
+- **Database URL**: Your Notion database URL
+
+> **Note**: Keep these credentials secure. Never commit them to version control.
 
 ## 🚀 Quick Start (Choose Your Path)
 
@@ -47,7 +51,9 @@ pip install -r requirements.txt
 
 # 3. Share database with your integration in Notion
 
-# 4. Configuration is ready in .env file
+# 4. Create .env file with your credentials:
+#    NOTION_TOKEN=your_token_here
+#    NOTION_DATABASE_ID=your_database_id_here
 
 # 5. Validate setup
 python validate_notion.py
@@ -62,8 +68,8 @@ python sync_to_notion.py
 # 1. Go to repository Settings → Secrets and variables → Actions
 
 # 2. Add secrets:
-#    - NOTION_TOKEN: ntn_N762533464840bhrKQ0gDmSVkczVpOyKrfkk5m8VRH2b1S
-#    - NOTION_DATABASE_ID: bffb39a4584c462ca4d4bb9e1c892ccb
+#    - NOTION_TOKEN: your_integration_token
+#    - NOTION_DATABASE_ID: your_database_id
 
 # 3. Go to Actions tab → Sync to Notion → Run workflow
 
@@ -104,11 +110,11 @@ Your Notion database **must** have these properties:
 
 Before running the sync, ensure:
 
-- [ ] Database exists at: https://www.notion.so/tingogtang/bffb39a4584c462ca4d4bb9e1c892ccb
+- [ ] Database exists in your Notion workspace
 - [ ] All 9 properties are created with correct types
 - [ ] "Station" property has "Tiangong" and "ISS" options
-- [ ] Database is shared with your "tiangong" integration:
-  - Click "..." in database → "Add connections" → Select "tiangong"
+- [ ] Database is shared with your integration:
+  - Click "..." in database → "Add connections" → Select your integration
 - [ ] Integration token is valid and not expired
 
 ## 📈 What Gets Synced
