@@ -12,6 +12,7 @@ A comprehensive database of space research experiments conducted on the Tiangong
 - 📊 **[SETUP.md](SETUP.md)** - Comprehensive setup summary
 - 🔍 **[HOW_IT_WORKS.md](HOW_IT_WORKS.md)** - Technical explanation of sync process
 - 📝 **[USAGE.md](USAGE.md)** - Usage examples and workflows
+- 🔧 **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Fix common issues
 
 ## 📊 Database Contents
 
