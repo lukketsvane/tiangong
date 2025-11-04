@@ -41,12 +41,3 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
         run: python sync_to_notion.py
-      
-      - name: Upload sync results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: sync-results
-          path: |
-            *.log
-          retention-days: 7
