@@ -1,0 +1,227 @@
+#!/usr/bin/env python3
+"""
+Sync Tiangong research database (CSV) to Notion database.
+
+This script reads the planned_research_main.csv file and syncs it to a Notion database.
+Each row in the CSV becomes a page in the Notion database with corresponding properties.
+"""
+
+import csv
+import os
+import sys
+from datetime import datetime
+from typing import Dict, List, Any
+
+try:
+    from notion_client import Client
+    from dotenv import load_dotenv
+except ImportError:
+    print("Error: Required packages not installed.")
+    print("Please install them with: pip install notion-client python-dotenv")
+    sys.exit(1)
+
+# Load environment variables
+load_dotenv()
+
+# Configuration
+NOTION_TOKEN = os.getenv("NOTION_TOKEN")
+NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
+CSV_FILE = "planned_research_main.csv"
+
+
+def validate_config():
+    """Validate that required configuration is present."""
+    if not NOTION_TOKEN:
+        print("Error: NOTION_TOKEN not found in environment variables.")
+        print("Please set it in a .env file or as an environment variable.")
+        sys.exit(1)
+    
+    if not NOTION_DATABASE_ID:
+        print("Error: NOTION_DATABASE_ID not found in environment variables.")
+        print("Please set it in a .env file or as an environment variable.")
+        sys.exit(1)
+    
+    if not os.path.exists(CSV_FILE):
+        print(f"Error: CSV file '{CSV_FILE}' not found.")
+        sys.exit(1)
+
+
+def read_csv_data() -> List[Dict[str, str]]:
+    """Read data from the CSV file."""
+    with open(CSV_FILE, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        return list(reader)
+
+
+def create_notion_page_properties(row: Dict[str, str]) -> Dict[str, Any]:
+    """Convert CSV row to Notion page properties."""
+    properties = {
+        "Name": {
+            "title": [
+                {
+                    "text": {
+                        "content": row.get("Experiment_Name", "")
+                    }
+                }
+            ]
+        },
+        "Station": {
+            "select": {
+                "name": row.get("Station", "")
+            }
+        },
+        "Discipline": {
+            "rich_text": [
+                {
+                    "text": {
+                        "content": row.get("Discipline", "")
+                    }
+                }
+            ]
+        },
+        "Country/Institution": {
+            "rich_text": [
+                {
+                    "text": {
+                        "content": row.get("Country_Institution", "")
+                    }
+                }
+            ]
+        },
+        "Timeline Status": {
+            "rich_text": [
+                {
+                    "text": {
+                        "content": row.get("Timeline_Status", "")
+                    }
+                }
+            ]
+        },
+        "Objectives": {
+            "rich_text": [
+                {
+                    "text": {
+                        "content": row.get("Objectives", "")
+                    }
+                }
+            ]
+        },
+        "Expected Outcomes": {
+            "rich_text": [
+                {
+                    "text": {
+                        "content": row.get("Expected_Outcomes", "")
+                    }
+                }
+            ]
+        },
+        "Principal Investigator": {
+            "rich_text": [
+                {
+                    "text": {
+                        "content": row.get("Principal_Investigator", "")
+                    }
+                }
+            ]
+        },
+        "Mission Module": {
+            "rich_text": [
+                {
+                    "text": {
+                        "content": row.get("Mission_Module", "")
+                    }
+                }
+            ]
+        }
+    }
+    
+    return properties
+
+
+def get_existing_pages(notion: Client, database_id: str) -> Dict[str, str]:
+    """Get all existing pages from the Notion database."""
+    existing_pages = {}
+    has_more = True
+    start_cursor = None
+    
+    while has_more:
+        params = {"database_id": database_id}
+        if start_cursor:
+            params["start_cursor"] = start_cursor
+        
+        response = notion.databases.query(**params)
+        
+        for page in response["results"]:
+            # Use experiment name as key
+            title_property = page["properties"].get("Name", {})
+            if title_property.get("title"):
+                name = title_property["title"][0]["text"]["content"]
+                existing_pages[name] = page["id"]
+        
+        has_more = response["has_more"]
+        start_cursor = response.get("next_cursor")
+    
+    return existing_pages
+
+
+def sync_to_notion():
+    """Main sync function."""
+    validate_config()
+    
+    print("Starting sync to Notion...")
+    print(f"CSV file: {CSV_FILE}")
+    print(f"Database ID: {NOTION_DATABASE_ID}")
+    
+    # Initialize Notion client
+    notion = Client(auth=NOTION_TOKEN)
+    
+    # Read CSV data
+    csv_data = read_csv_data()
+    print(f"Found {len(csv_data)} experiments in CSV")
+    
+    # Get existing pages
+    print("Fetching existing pages from Notion...")
+    existing_pages = get_existing_pages(notion, NOTION_DATABASE_ID)
+    print(f"Found {len(existing_pages)} existing pages in Notion")
+    
+    # Sync each row
+    created_count = 0
+    updated_count = 0
+    
+    for row in csv_data:
+        experiment_name = row.get("Experiment_Name", "")
+        if not experiment_name:
+            continue
+        
+        properties = create_notion_page_properties(row)
+        
+        if experiment_name in existing_pages:
+            # Update existing page
+            page_id = existing_pages[experiment_name]
+            try:
+                notion.pages.update(page_id=page_id, properties=properties)
+                updated_count += 1
+                print(f"✓ Updated: {experiment_name}")
+            except Exception as e:
+                print(f"✗ Error updating {experiment_name}: {e}")
+        else:
+            # Create new page
+            try:
+                notion.pages.create(
+                    parent={"database_id": NOTION_DATABASE_ID},
+                    properties=properties
+                )
+                created_count += 1
+                print(f"+ Created: {experiment_name}")
+            except Exception as e:
+                print(f"✗ Error creating {experiment_name}: {e}")
+    
+    print("\n" + "="*60)
+    print(f"Sync complete!")
+    print(f"Created: {created_count} pages")
+    print(f"Updated: {updated_count} pages")
+    print("="*60)
+
+
+if __name__ == "__main__":
+    sync_to_notion()
